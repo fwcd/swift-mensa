@@ -7,10 +7,17 @@ public struct Meal: Codable, Identifiable, Hashable {
     public let category: String?
 
     /// The prices for a meal.
-    public struct Prices: Codable, Hashable {
+    public struct Prices: Codable, Hashable, CustomStringConvertible {
         public let students: Double?
         public let employees: Double?
         public let pupils: Double?
         public let others: Double?
+
+        public var description: String {
+            [students, employees, pupils, others]
+                .compactMap { $0 }
+                .map { String(format: "%.2f €", $0) }
+                .joined(separator: " / ")
+        }
     }
 }
