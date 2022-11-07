@@ -16,3 +16,8 @@ The `Mensa` library provides a lightweight wrapper around the OpenMensa API for 
 
 - ``Canteen``
 - ``Coordinates``
+- ``Mensa``
+
+### Auxiliary
+
+- ``MensaError``
