@@ -34,12 +34,50 @@ public struct MensaClient {
     ///   - radius: Radius around the center for the search in km
     /// - Returns: The matching canteens
     public func canteens(near coordinates: Coordinates? = nil, radius: Double? = nil) async throws -> [Canteen] {
-        return try await get(endpoint: "/canteens", query: [
-            coordinates.map { [("near[lat]", String($0.latitude)), ("near[lng]", String($0.longitude))] } ?? [],
-            radius.map { [("near[dist]", String($0))] } ?? [],
-        ].flatMap { $0 })
+        try await get(
+            endpoint: "/canteens",
+            query: [
+                coordinates.map { [("near[lat]", String($0.latitude)), ("near[lng]", String($0.longitude))] } ?? [],
+                radius.map { [("near[dist]", String($0))] } ?? [],
+            ].flatMap { $0 }
+        )
     }
 
+    /// Queries information about a single canteen.
+    /// 
+    /// - Parameters:
+    ///   - canteenId: The canteen id
+    /// - Returns: The matching canteen
+    public func canteen(for id: Int) async throws -> Canteen {
+        try await get(endpoint: "/canteens/\(id)")
+    }
+
+    /// Fetches today's meals for the given canteen.
+    /// 
+    /// 
+    /// - Parameters:
+    ///   - canteenId: The ID of the canteen to query
+    /// - Returns: The list of offered meals
+    public func meals(for canteenId: Int) async throws -> [Meal] {
+        try await meals(for: canteenId, on: today())
+    }
+
+    /// Fetches the meals for the given canteen on the given date.
+    /// 
+    /// - Parameters:
+    ///   - canteenId: The ID of the canteen to query
+    ///   - date: The YYYY-MM-DD date to fetch the meal plan for
+    /// - Returns: The list of offered meals
+    public func meals(for canteenId: Int, on date: String) async throws -> [Meal] {
+        try await get(endpoint: "/canteens/\(canteenId)/days/\(date)/meals")
+    }
+
+    /// Performs a GET request against the API.
+    /// 
+    /// - Parameters:
+    ///   - endpoint: The endpoint to query
+    ///   - query: URL query parameters to attach
+    /// - Returns: The decoded JSON response
     private func get<T>(endpoint: String, query: [(String, String)] = []) async throws -> T where T: Decodable {
         var components = URLComponents()
         components.scheme = "https"
@@ -57,4 +95,13 @@ public struct MensaClient {
         let result = try JSONDecoder().decode(T.self, from: body)
         return result
     }
+}
+
+/// The date string for today.
+/// 
+/// - Returns: The YYYY-MM-DD-formatted date for today.
+private func today() -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter.string(from: Date())
 }
