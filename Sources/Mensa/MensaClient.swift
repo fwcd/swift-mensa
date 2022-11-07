@@ -1,6 +1,7 @@
 import AsyncHTTPClient
 import Foundation
 import NIO
+import NIOFoundationCompat
 
 /// A facility for querying meal plans.
 public struct MensaClient {
@@ -92,8 +93,7 @@ public struct MensaClient {
         let request = HTTPClientRequest(url: url.absoluteString)
         let response = try await httpClient.execute(request, timeout: timeout)
         let bodyBuffer = try await response.body.collect(upTo: 1024 * 1024) // 1 MB
-        let bodyData = Data(buffer: bodyBuffer)
-        let result = try JSONDecoder().decode(T.self, from: bodyData)
+        let result = try JSONDecoder().decode(T.self, from: bodyBuffer)
         return result
     }
 }
