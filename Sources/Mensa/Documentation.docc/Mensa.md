@@ -8,15 +8,12 @@ The `Mensa` library provides a lightweight wrapper around the OpenMensa API for 
 
 ## Topics
 
-### Entrypoint
+### Querying canteens and meals
 
 - ``MensaClient``
-
-### Model
-
 - ``Canteen``
 - ``Coordinates``
-- ``Mensa``
+- ``Meal``
 
 ### Auxiliary
 
