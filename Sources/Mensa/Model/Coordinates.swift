@@ -1,7 +1,16 @@
 /// A geographical position.
-public struct Coordinates: Codable, Hashable {
+public struct Coordinates: Codable, Hashable, CustomStringConvertible {
     public let latitude: Double
     public let longitude: Double
+
+    private var latitudeDescription: String { "\(latitude >= 0 ? "N" : "S") \(abs(latitude))°" }
+    private var longitudeDescription: String { "\(longitude >= 0 ? "E" : "W") \(abs(longitude))°" }
+    public var description: String { "\(latitudeDescription), \(longitudeDescription)" }
+
+    public init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
 
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()

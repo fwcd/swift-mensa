@@ -31,12 +31,12 @@ public struct MensaClient {
     /// 
     /// - Parameters:
     ///   - coordinates: Center point around which to search
-    ///   - distance: Radius around the center for the search
+    ///   - radius: Radius around the center for the search in km
     /// - Returns: The matching canteens
-    public func canteens(near coordinates: Coordinates? = nil, distance: Double? = nil) async throws -> [Canteen] {
+    public func canteens(near coordinates: Coordinates? = nil, radius: Double? = nil) async throws -> [Canteen] {
         return try await get(endpoint: "/canteens", query: [
-            coordinates.map { [("near[lat]", String($0.latitude)), ("near[lon]", String($0.longitude))] } ?? [],
-            distance.map { [("near[dist]", String($0))] } ?? [],
+            coordinates.map { [("near[lat]", String($0.latitude)), ("near[lng]", String($0.longitude))] } ?? [],
+            radius.map { [("near[dist]", String($0))] } ?? [],
         ].flatMap { $0 })
     }
 
