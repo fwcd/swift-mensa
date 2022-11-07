@@ -12,6 +12,7 @@ import Mensa
 
 let client = MensaClient()
 let canteens: [Canteen] = try await client.canteens()
+let todaysMeals: [Meal] = try await client.meals(for: canteens[0].id)
 ```
 
 See [the `Snippets` folder](Snippets) for more examples.
