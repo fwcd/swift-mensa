@@ -4,7 +4,7 @@ import NIO
 import NIOFoundationCompat
 
 /// A facility for querying meal plans.
-public struct MensaClient {
+public class MensaClient {
     private static let apiHost: String = "openmensa.org"
     private static let apiBasePath: String = "/api/v2/"
 
@@ -23,6 +23,10 @@ public struct MensaClient {
     public init(eventLoopGroup: EventLoopGroup? = nil, timeout: TimeAmount = .seconds(10)) {
         httpClient = HTTPClient(eventLoopGroupProvider: eventLoopGroup.map { .shared($0) } ?? .createNew)
         self.timeout = timeout
+    }
+
+    deinit {
+        try! httpClient.syncShutdown()
     }
 
     /// Queries canteens.
