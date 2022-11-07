@@ -91,8 +91,9 @@ public struct MensaClient {
 
         let request = HTTPClientRequest(url: url.absoluteString)
         let response = try await httpClient.execute(request, timeout: timeout)
-        let body = try await response.body.collect(upTo: 1024 * 1024) // 1 MB
-        let result = try JSONDecoder().decode(T.self, from: body)
+        let bodyBuffer = try await response.body.collect(upTo: 1024 * 1024) // 1 MB
+        let bodyData = Data(buffer: bodyBuffer)
+        let result = try JSONDecoder().decode(T.self, from: bodyData)
         return result
     }
 }
