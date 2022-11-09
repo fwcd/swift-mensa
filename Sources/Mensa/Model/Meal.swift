@@ -2,9 +2,23 @@
 public struct Meal: Codable, Identifiable, Hashable {
     public let id: Int
     public let name: String
-    public let notes: [String]
     public let prices: Prices
+    public let notes: [String]
     public let category: String?
+
+    public init(
+        id: Int,
+        name: String,
+        prices: Prices,
+        notes: [String] = [],
+        category: String? = nil
+    ) {
+        self.id = id
+        self.name = name
+        self.prices = prices
+        self.notes = notes
+        self.category = category
+    }
 
     public var attributes: Attributes {
         notes.map { Attributes(parsing: $0) }.reduce([]) { [$0, $1] }
