@@ -6,7 +6,7 @@ public struct Meal: Codable, Identifiable, Hashable {
     public let prices: Prices
     public let category: String?
 
-    private var attributes: Attributes {
+    public var attributes: Attributes {
         notes.map { Attributes(parsing: $0) }.reduce([]) { [$0, $1] }
     }
 
