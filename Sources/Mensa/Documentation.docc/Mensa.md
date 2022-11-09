@@ -12,8 +12,9 @@ The `Mensa` library provides a lightweight wrapper around the OpenMensa API for 
 
 - ``MensaClient``
 - ``Canteen``
-- ``Coordinates``
 - ``Meal``
+- ``Coordinates``
+- ``Day``
 
 ### Auxiliary
 

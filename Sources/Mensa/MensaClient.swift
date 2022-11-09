@@ -57,6 +57,16 @@ public class MensaClient {
         try await get(endpoint: "/canteens/\(id)")
     }
 
+    /// Fetches the opening days of the given canteen.
+    /// 
+    /// 
+    /// - Parameters:
+    ///   - canteenId: The ID of the canteen to query
+    /// - Returns: The opening days
+    public func days(for canteenId: Int) async throws -> [Day] {
+        try await get(endpoint: "/canteens/\(canteenId)/days")
+    }
+
     /// Fetches today's meals for the given canteen.
     /// 
     /// 
@@ -106,7 +116,5 @@ public class MensaClient {
 /// 
 /// - Returns: The YYYY-MM-DD-formatted date for today.
 private func today() -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
-    return formatter.string(from: Date())
+    dateFormatter.string(from: Date())
 }
