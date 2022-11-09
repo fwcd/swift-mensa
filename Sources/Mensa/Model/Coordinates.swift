@@ -1,7 +1,7 @@
 /// A geographical position.
 public struct Coordinates: Codable, Hashable, CustomStringConvertible {
-    public let latitude: Double
-    public let longitude: Double
+    public var latitude: Double
+    public var longitude: Double
 
     private var latitudeDescription: String { "\(latitude >= 0 ? "N" : "S") \(abs(latitude))°" }
     private var longitudeDescription: String { "\(longitude >= 0 ? "E" : "W") \(abs(longitude))°" }

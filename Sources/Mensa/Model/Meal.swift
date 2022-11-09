@@ -1,10 +1,10 @@
 /// A meal offered by a canteen.
 public struct Meal: Codable, Identifiable, Hashable {
-    public let id: Int
-    public let name: String
-    public let prices: Prices
-    public let notes: [String]
-    public let category: String?
+    public var id: Int
+    public var name: String
+    public var prices: Prices
+    public var notes: [String]
+    public var category: String?
 
     public init(
         id: Int,
@@ -26,16 +26,28 @@ public struct Meal: Codable, Identifiable, Hashable {
 
     /// The prices for a meal.
     public struct Prices: Codable, Hashable, CustomStringConvertible {
-        public let students: Double?
-        public let employees: Double?
-        public let pupils: Double?
-        public let others: Double?
+        public var students: Double?
+        public var employees: Double?
+        public var pupils: Double?
+        public var others: Double?
 
         public var description: String {
             [students, employees, pupils, others]
                 .compactMap { $0 }
                 .map { String(format: "%.2f €", $0) }
                 .joined(separator: " / ")
+        }
+
+        public init(
+            students: Double? = nil,
+            employees: Double? = nil,
+            pupils: Double? = nil,
+            others: Double? = nil
+        ) {
+            self.students = students
+            self.employees = employees
+            self.pupils = pupils
+            self.others = others
         }
     }
 
