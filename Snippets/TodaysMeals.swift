@@ -2,7 +2,7 @@ import Mensa
 
 let client = MensaClient()
 
-let canteenId = 1
+let canteenId = 213
 let canteen = try await client.canteen(for: canteenId)
 let meals = try await client.meals(for: canteenId)
 
