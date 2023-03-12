@@ -106,6 +106,10 @@ public class MensaClient {
 
         let request = HTTPClientRequest(url: url.absoluteString)
         let response = try await httpClient.execute(request, timeout: timeout)
+        let status = response.status
+        if status.code >= 400 {
+            throw MensaError.requestFailed(endpoint: endpoint, code: status.code, reason: status.reasonPhrase)
+        }
         let bodyBuffer = try await response.body.collect(upTo: 1024 * 1024) // 1 MB
         let result = try JSONDecoder().decode(T.self, from: bodyBuffer)
         return result
