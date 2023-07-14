@@ -18,7 +18,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.13.0"),
+        .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.18.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin.git", from: "1.0.0"),
     ],
     targets: [
