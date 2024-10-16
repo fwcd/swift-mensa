@@ -9,11 +9,12 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest', 'macos-latest']
-        swift: ['5.7']
+        swift: ['5.9']
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: swift-actions/setup-swift@v1
+    - uses: actions/checkout@v4
+    # https://github.com/swift-actions/setup-swift/pull/680
+    - uses: swift-actions/setup-swift@bb83339d1e8577741bdc6c65ba551ce7dc0fb854
       with:
         swift-version: ${{ matrix.swift }}
     - name: Build
