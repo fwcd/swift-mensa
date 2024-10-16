@@ -1,7 +1,7 @@
 import Foundation
 
 /// An opening day of a canteen.
-public struct Day: Codable, Hashable, Identifiable {
+public struct Day: Codable, Hashable, Identifiable, Sendable {
     /// The YYYY-MM-DD date of this day.
     public var date: String
     /// Whether the canteen is closed that day.

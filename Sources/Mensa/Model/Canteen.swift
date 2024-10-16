@@ -1,5 +1,5 @@
 /// Information about a canteen.
-public struct Canteen: Codable, Identifiable, Hashable {
+public struct Canteen: Codable, Identifiable, Hashable, Sendable {
     public var id: Int
     public var name: String
     public var city: String

@@ -1,5 +1,5 @@
 /// A meal offered by a canteen.
-public struct Meal: Codable, Identifiable, Hashable {
+public struct Meal: Codable, Identifiable, Hashable, Sendable {
     public var id: Int
     public var name: String
     public var prices: Prices
@@ -25,7 +25,7 @@ public struct Meal: Codable, Identifiable, Hashable {
     }
 
     /// The prices for a meal.
-    public struct Prices: Codable, Hashable, CustomStringConvertible {
+    public struct Prices: Codable, Hashable, CustomStringConvertible, Sendable {
         public var students: Double?
         public var employees: Double?
         public var pupils: Double?
@@ -52,7 +52,7 @@ public struct Meal: Codable, Identifiable, Hashable {
     }
 
     /// Strongly typed attributes for a meal.
-    public struct Attributes: OptionSet, RawRepresentable {
+    public struct Attributes: OptionSet, RawRepresentable, Hashable, Sendable {
         public let rawValue: UInt64
 
         public static let vegetarian = Self(rawValue: 1 << 1)

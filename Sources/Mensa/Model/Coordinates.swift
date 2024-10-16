@@ -1,5 +1,5 @@
 /// A geographical position.
-public struct Coordinates: Codable, Hashable, CustomStringConvertible {
+public struct Coordinates: Codable, Hashable, CustomStringConvertible, Sendable {
     public var latitude: Double
     public var longitude: Double
 
